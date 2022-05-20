@@ -25,14 +25,12 @@ def measure():
 	res = test.results.dict()
 	server = res.get("server")
 
-	print(res)
-
 	p = influxdb_client.Point("download").tag("lat", server.get("lat")).tag("lon", server.get("lon")).tag("id", server.get("id")).field("value", res.get("download"))
 	influxdb_write.write(bucket=influxdb_bucket, org=influxdb_organization, record=p)
-	#p = influxdb_client.Point("upload").tag("lat", server.get("lat")).tag("lon", server.get("lon")).tag("id", server.get("id")).field("value", res.get("upload"))
-	#influxdb_write.write(bucket=influxdb_bucket, org=influxdb_organization, record=p)
-	#p = influxdb_client.Point("speedtest").tag("lat", server.get("lat")).tag("lon", server.get("lon")).tag("id", server.get("id")).field("ping", res.get("ping"))
-	#influxdb_write.write(bucket=influxdb_bucket, org=influxdb_organization, record=p)
+	p = influxdb_client.Point("upload").tag("lat", server.get("lat")).tag("lon", server.get("lon")).tag("id", server.get("id")).field("value", res.get("upload"))
+	influxdb_write.write(bucket=influxdb_bucket, org=influxdb_organization, record=p)
+	p = influxdb_client.Point("ping").tag("lat", server.get("lat")).tag("lon", server.get("lon")).tag("id", server.get("id")).field("value", res.get("ping"))
+	influxdb_write.write(bucket=influxdb_bucket, org=influxdb_organization, record=p)
 
 	return
 
