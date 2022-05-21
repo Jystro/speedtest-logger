@@ -5,6 +5,7 @@ A basic Docker logger that uses speedtest-cli module for Python and Influxdb to 
 ## Usage
 
 Just clone the repository with git and set the environmental variables before using docker-compose to start the stack. As an alternative, edit `docker-compose.yml` to manually set the env variables
+You can set the INTERVAL variable to 0, but keep in mind getting the speedtest results takes about 15 seconds
 
 You can then go to https://yourIP:8086 and login to edit the dashboard
 
