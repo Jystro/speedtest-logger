@@ -1,0 +1,422 @@
+{
+ "meta": {
+  "version": "1",
+  "type": "dashboard",
+  "name": "Speed-logger-Template",
+  "description": "template created from dashboard: Speed-logger"
+ },
+ "content": {
+  "data": {
+   "type": "dashboard",
+   "attributes": {
+    "name": "Speed-logger",
+    "description": ""
+   },
+   "relationships": {
+    "label": {
+     "data": []
+    },
+    "cell": {
+     "data": [
+      {
+       "type": "cell",
+       "id": "0965cb3901d59000"
+      },
+      {
+       "type": "cell",
+       "id": "0965cb69abd59000"
+      },
+      {
+       "type": "cell",
+       "id": "0965cb6b31959000"
+      },
+      {
+       "type": "cell",
+       "id": "0965cdb452d59000"
+      }
+     ]
+    },
+    "variable": {
+     "data": []
+    }
+   }
+  },
+  "included": [
+   {
+    "id": "0965cb3901d59000",
+    "type": "cell",
+    "attributes": {
+     "x": 0,
+     "y": 8,
+     "w": 4,
+     "h": 4
+    },
+    "relationships": {
+     "view": {
+      "data": {
+       "type": "view",
+       "id": "0965cb3901d59000"
+      }
+     }
+    }
+   },
+   {
+    "id": "0965cb69abd59000",
+    "type": "cell",
+    "attributes": {
+     "x": 8,
+     "y": 8,
+     "w": 4,
+     "h": 4
+    },
+    "relationships": {
+     "view": {
+      "data": {
+       "type": "view",
+       "id": "0965cb69abd59000"
+      }
+     }
+    }
+   },
+   {
+    "id": "0965cb6b31959000",
+    "type": "cell",
+    "attributes": {
+     "x": 4,
+     "y": 8,
+     "w": 4,
+     "h": 4
+    },
+    "relationships": {
+     "view": {
+      "data": {
+       "type": "view",
+       "id": "0965cb6b31959000"
+      }
+     }
+    }
+   },
+   {
+    "id": "0965cdb452d59000",
+    "type": "cell",
+    "attributes": {
+     "x": 0,
+     "y": 0,
+     "w": 12,
+     "h": 8
+    },
+    "relationships": {
+     "view": {
+      "data": {
+       "type": "view",
+       "id": "0965cdb452d59000"
+      }
+     }
+    }
+   },
+   {
+    "type": "view",
+    "id": "0965cb3901d59000",
+    "attributes": {
+     "name": "Download speed",
+     "properties": {
+      "shape": "chronograf-v2",
+      "type": "gauge",
+      "queries": [
+       {
+        "text": "from(bucket: \"speedtest\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"download\" and r._field == \"value\")\n  |> map(fn: (r) => ({r with _value: r._value / 1048576.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")",
+        "editMode": "advanced",
+        "name": "",
+        "builderConfig": {
+         "buckets": [],
+         "tags": [
+          {
+           "key": "_measurement",
+           "values": [],
+           "aggregateFunctionType": "filter"
+          }
+         ],
+         "functions": [
+          {
+           "name": "mean"
+          }
+         ],
+         "aggregateWindow": {
+          "period": "auto",
+          "fillValues": false
+         }
+        }
+       }
+      ],
+      "prefix": "",
+      "tickPrefix": "",
+      "suffix": "Mbps",
+      "tickSuffix": "Mbps",
+      "colors": [
+       {
+        "id": "0",
+        "type": "min",
+        "hex": "#4591ED",
+        "name": "ocean",
+        "value": 0
+       },
+       {
+        "id": "1",
+        "type": "max",
+        "hex": "#00C9FF",
+        "name": "laser",
+        "value": 200
+       }
+      ],
+      "decimalPlaces": {
+       "isEnforced": true,
+       "digits": 2
+      },
+      "note": "",
+      "showNoteWhenEmpty": false
+     }
+    }
+   },
+   {
+    "type": "view",
+    "id": "0965cb69abd59000",
+    "attributes": {
+     "name": "Ping",
+     "properties": {
+      "shape": "chronograf-v2",
+      "type": "gauge",
+      "queries": [
+       {
+        "text": "from(bucket: \"speedtest\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ping\" and r._field == \"value\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")",
+        "editMode": "advanced",
+        "name": "",
+        "builderConfig": {
+         "buckets": [],
+         "tags": [
+          {
+           "key": "_measurement",
+           "values": [],
+           "aggregateFunctionType": "filter"
+          }
+         ],
+         "functions": [
+          {
+           "name": "mean"
+          }
+         ],
+         "aggregateWindow": {
+          "period": "auto",
+          "fillValues": false
+         }
+        }
+       }
+      ],
+      "prefix": "",
+      "tickPrefix": "",
+      "suffix": "ms",
+      "tickSuffix": "ms",
+      "colors": [
+       {
+        "id": "0",
+        "type": "min",
+        "hex": "#7CE490",
+        "name": "honeydew",
+        "value": 0
+       },
+       {
+        "id": "1",
+        "type": "max",
+        "hex": "#F95F53",
+        "name": "curacao",
+        "value": 100
+       }
+      ],
+      "decimalPlaces": {
+       "isEnforced": true,
+       "digits": 2
+      },
+      "note": "",
+      "showNoteWhenEmpty": false
+     }
+    }
+   },
+   {
+    "type": "view",
+    "id": "0965cb6b31959000",
+    "attributes": {
+     "name": "Upload speed",
+     "properties": {
+      "shape": "chronograf-v2",
+      "type": "gauge",
+      "queries": [
+       {
+        "text": "from(bucket: \"speedtest\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"upload\" and r._field == \"value\")\n  |> map(fn: (r) => ({r with _value: r._value / 1048576.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")",
+        "editMode": "advanced",
+        "name": "",
+        "builderConfig": {
+         "buckets": [],
+         "tags": [
+          {
+           "key": "_measurement",
+           "values": [],
+           "aggregateFunctionType": "filter"
+          }
+         ],
+         "functions": [
+          {
+           "name": "mean"
+          }
+         ],
+         "aggregateWindow": {
+          "period": "auto",
+          "fillValues": false
+         }
+        }
+       }
+      ],
+      "prefix": "",
+      "tickPrefix": "",
+      "suffix": "Mbps",
+      "tickSuffix": "Mbps",
+      "colors": [
+       {
+        "id": "0",
+        "type": "min",
+        "hex": "#513CC6",
+        "name": "planet",
+        "value": 0
+       },
+       {
+        "id": "1",
+        "type": "max",
+        "hex": "#9394FF",
+        "name": "comet",
+        "value": 20
+       }
+      ],
+      "decimalPlaces": {
+       "isEnforced": true,
+       "digits": 2
+      },
+      "note": "",
+      "showNoteWhenEmpty": false
+     }
+    }
+   },
+   {
+    "type": "view",
+    "id": "0965cdb452d59000",
+    "attributes": {
+     "name": "Speed-logger",
+     "properties": {
+      "shape": "chronograf-v2",
+      "queries": [
+       {
+        "text": "from(bucket: \"speedtest\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"download\" or r._measurement == \"upload\" or r._measurement == \"ping\" and r._field == \"value\")\n  |> map(\n    fn: (r) => ({r with \n      _value: if r._measurement == \"ping\" then r._value\n      else r._value / 1048576.0\n      })\n  )\n  |> group(columns: [\"_measurement\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+        "editMode": "advanced",
+        "name": "",
+        "builderConfig": {
+         "buckets": [],
+         "tags": [
+          {
+           "key": "_measurement",
+           "values": [],
+           "aggregateFunctionType": "filter"
+          }
+         ],
+         "functions": [
+          {
+           "name": "mean"
+          }
+         ],
+         "aggregateWindow": {
+          "period": "auto",
+          "fillValues": false
+         }
+        }
+       }
+      ],
+      "axes": {
+       "x": {
+        "bounds": [
+         "",
+         ""
+        ],
+        "label": "",
+        "prefix": "",
+        "suffix": "",
+        "base": "10",
+        "scale": "linear"
+       },
+       "y": {
+        "bounds": [
+         "0",
+         "100"
+        ],
+        "label": "Value",
+        "prefix": "",
+        "suffix": "",
+        "base": "10",
+        "scale": "linear"
+       }
+      },
+      "type": "xy",
+      "staticLegend": {
+       "colorizeRows": true,
+       "heightRatio": 0.15048543689320387,
+       "show": true,
+       "opacity": 1,
+       "orientationThreshold": 100000000,
+       "widthRatio": 1
+      },
+      "geom": "monotoneX",
+      "colors": [
+       {
+        "id": "668db155-0734-43ce-925a-bc5326e95643",
+        "type": "scale",
+        "hex": "#31C0F6",
+        "name": "Nineteen Eighty Four",
+        "value": 0
+       },
+       {
+        "id": "7f2cfe10-3464-49cd-831b-960a3a659f41",
+        "type": "scale",
+        "hex": "#A500A5",
+        "name": "Nineteen Eighty Four",
+        "value": 0
+       },
+       {
+        "id": "2ff2b7d7-52a0-4b17-968b-09683c0ce0f5",
+        "type": "scale",
+        "hex": "#FF7E27",
+        "name": "Nineteen Eighty Four",
+        "value": 0
+       }
+      ],
+      "note": "",
+      "showNoteWhenEmpty": false,
+      "xColumn": "_time",
+      "generateXAxisTicks": [],
+      "xTotalTicks": 0,
+      "xTickStart": 0,
+      "xTickStep": 0,
+      "yColumn": "_value",
+      "generateYAxisTicks": [],
+      "yTotalTicks": 0,
+      "yTickStart": 0,
+      "yTickStep": 0,
+      "shadeBelow": true,
+      "position": "overlaid",
+      "timeFormat": "",
+      "hoverDimension": "auto",
+      "legendColorizeRows": true,
+      "legendHide": false,
+      "legendOpacity": 1,
+      "legendOrientationThreshold": 100000000
+     }
+    }
+   }
+  ]
+ },
+ "labels": []
+}
