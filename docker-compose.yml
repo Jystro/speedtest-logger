@@ -6,11 +6,11 @@ services:
     restart: "always"
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME="${USER}"
-      - DOCKER_INFLUXDB_INIT_PASSWORD="${PASSWORD}"
-      - DOCKER_INFLUXDB_INIT_ORG="${ORG}"
-      - DOCKER_INFLUXDB_INIT_BUCKET="${BUCKET}"
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN="${TOKEN}"
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUX_USER}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUX_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${INFLUX_ORG}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUX_BUCKET}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUX_TOKEN}
     volumes:
       - influxdb-data:/data
     ports:
@@ -21,10 +21,10 @@ services:
     build: .
     restart: "unless-stopped"
     environment:
-      - DOCKER_INFLUXDB_INIT_ORG="${ORG}"
-      - DOCKER_INFLUXDB_INIT_BUCKET="${BUCKET}"
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN="${TOKEN}"
-      - INTERVAL="${INTERVAL}"
+      - ORG=${INFLUX_ORG}
+      - BUCKET=${INFLUX_BUCKET}
+      - TOKEN=${INFLUX_TOKEN}
+      - INTERVAL=${INTERVAL}
     depends_on:
       - "influxdb"
     links:
