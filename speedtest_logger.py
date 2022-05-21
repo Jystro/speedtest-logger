@@ -38,4 +38,4 @@ if __name__ == "__main__":
 	interval = getenv("INTERVAL")
 	while True:
 		measure()
-		time.sleep(60 * 60)
+		time.sleep(interval)
