@@ -12,7 +12,7 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUX_BUCKET}
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUX_TOKEN}
     volumes:
-      - influxdb-data:/data
+      - influxdb-data:/var/lib/influxdb2
     ports:
       - 8086:8086
 
