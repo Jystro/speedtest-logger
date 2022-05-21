@@ -35,7 +35,7 @@ def measure():
 
 
 if __name__ == "__main__":
-	interval = getenv("INTERVAL")
+	interval = int(getenv("INTERVAL"))
 	while True:
 		measure()
 		time.sleep(interval)
